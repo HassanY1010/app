@@ -192,7 +192,7 @@ const Ads = () => {
                                             <div className="flex items-center gap-4">
                                                 <div className="w-20 h-20 sm:w-16 sm:h-16 rounded-2xl bg-gray-100 flex-shrink-0 overflow-hidden border border-gray-100 shadow-sm relative">
                                                     {ad.main_image ? (
-                                                        <img src={ad.main_image.image_url} alt="" className="w-full h-full object-cover" />
+                                                        <img src={ad.main_image.thumbnail_url || ad.main_image.image_url} alt="" className="w-full h-full object-cover" />
                                                     ) : (
                                                         <div className="w-full h-full flex items-center justify-center text-gray-300">
                                                             <LayoutDashboard size={24} />
@@ -335,7 +335,7 @@ const Ads = () => {
                                         selectedAd.images.map((img, idx) => (
                                             <div key={idx} className="aspect-square rounded-xl sm:rounded-2xl overflow-hidden bg-gray-100 border border-gray-100 group relative shadow-sm">
                                                 <img
-                                                    src={img.image_url}
+                                                    src={img.thumbnail_url || img.image_url}
                                                     alt=""
                                                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                                 />
