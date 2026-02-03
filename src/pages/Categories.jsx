@@ -105,22 +105,26 @@ const Categories = () => {
                             <Plus size={18} />
                             <span className="text-xs font-bold sm:hidden">فرعي</span>
                         </button>
-                        <button
-                            onClick={() => handleOpenModal(category)}
-                            className="p-2.5 sm:p-2 text-indigo-600 hover:bg-indigo-50 rounded-xl flex items-center gap-1.5 border border-indigo-50 sm:border-0"
-                            title="تعديل"
-                        >
-                            <Edit2 size={18} />
-                            <span className="text-xs font-bold sm:hidden">تعديل</span>
-                        </button>
-                        <button
-                            onClick={() => handleDelete(category.id)}
-                            className="p-2.5 sm:p-2 text-red-600 hover:bg-red-50 rounded-xl flex items-center gap-1.5 border border-red-50 sm:border-0"
-                            title="حذف"
-                        >
-                            <Trash2 size={18} />
-                            <span className="text-xs font-bold sm:hidden">حذف</span>
-                        </button>
+                        {category.slug !== 'other' && category.title !== 'سلعة أخرى' && (
+                            <button
+                                onClick={() => handleOpenModal(category)}
+                                className="p-2.5 sm:p-2 text-indigo-600 hover:bg-indigo-50 rounded-xl flex items-center gap-1.5 border border-indigo-50 sm:border-0"
+                                title="تعديل"
+                            >
+                                <Edit2 size={18} />
+                                <span className="text-xs font-bold sm:hidden">تعديل</span>
+                            </button>
+                        )}
+                        {category.slug !== 'other' && category.title !== 'سلعة أخرى' && (
+                            <button
+                                onClick={() => handleDelete(category.id)}
+                                className="p-2.5 sm:p-2 text-red-600 hover:bg-red-50 rounded-xl flex items-center gap-1.5 border border-red-50 sm:border-0"
+                                title="حذف"
+                            >
+                                <Trash2 size={18} />
+                                <span className="text-xs font-bold sm:hidden">حذف</span>
+                            </button>
+                        )}
                     </div>
                 </div>
                 {hasChildren && isExpanded && (
