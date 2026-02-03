@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/axios';
-import { Search, Filter, Check, X, Trash2, Eye, Loader2, MoreVertical, ExternalLink, User, LayoutDashboard, MapPin, Tag, Clock } from 'lucide-react';
+import { Search, Filter, Check, X, Trash2, Eye, Loader2, MoreVertical, ExternalLink, User, LayoutDashboard, MapPin, Tag, Clock, Star } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { ar } from 'date-fns/locale';
 
@@ -97,6 +97,48 @@ const Ads = () => {
             }
         } catch (error) {
             alert('فشل الحذف: ' + (error.response?.data?.message || 'خطأ غير معروف'));
+        } finally {
+            setActionLoading(null);
+        }
+    };
+
+    const handleActivateFeatured = async (id) => {
+        if (!window.confirm('هل أنت متأكد من تفعيل الإعلان المميز لمدة 7 أيام؟')) {
+            return;
+        }
+
+        setActionLoading(id);
+        try {
+            await api.post(`/admin/ad/${id}/activate-featured`, {
+                duration_days: 7
+            });
+            fetchAds();
+            if (selectedAd && selectedAd.id === id) {
+                fetchAdDetails(id);
+            }
+            alert('تم تفعيل الإعلان المميز بنجاح لمدة 7 أيام');
+        } catch (error) {
+            alert('فشلت العملية: ' + (error.response?.data?.message || 'خطأ غير معروف'));
+        } finally {
+            setActionLoading(null);
+        }
+    };
+
+    const handleDeactivateFeatured = async (id) => {
+        if (!window.confirm('هل أنت متأكد من إلغاء تفعيل الإعلان المميز؟')) {
+            return;
+        }
+
+        setActionLoading(id);
+        try {
+            await api.post(`/admin/ad/${id}/deactivate-featured`);
+            fetchAds();
+            if (selectedAd && selectedAd.id === id) {
+                fetchAdDetails(id);
+            }
+            alert('تم إلغاء تفعيل الإعلان المميز بنجاح');
+        } catch (error) {
+            alert('فشلت العملية: ' + (error.response?.data?.message || 'خطأ غير معروف'));
         } finally {
             setActionLoading(null);
         }
@@ -258,6 +300,26 @@ const Ads = () => {
                                                         </button>
                                                     )}
 
+                                                    {ad.is_featured ? (
+                                                        <button
+                                                            onClick={() => handleDeactivateFeatured(ad.id)}
+                                                            className="flex-1 sm:flex-none p-2 bg-yellow-100 text-yellow-700 hover:bg-yellow-200 rounded-xl transition-all shadow-sm border border-yellow-200 flex items-center justify-center lg:p-1.5"
+                                                            title="إلغاء التمييز"
+                                                        >
+                                                            <Star size={18} fill="currentColor" />
+                                                            <span className="sm:hidden mr-2 font-bold text-xs">مميز</span>
+                                                        </button>
+                                                    ) : (
+                                                        <button
+                                                            onClick={() => handleActivateFeatured(ad.id)}
+                                                            className="flex-1 sm:flex-none p-2 bg-purple-50 text-purple-600 hover:bg-purple-100 rounded-xl transition-all shadow-sm border border-purple-100 flex items-center justify-center lg:p-1.5"
+                                                            title="تفعيل التمييز"
+                                                        >
+                                                            <Star size={18} />
+                                                            <span className="sm:hidden mr-2 font-bold text-xs text-purple-700">تمييز</span>
+                                                        </button>
+                                                    )}
+
                                                     <button
                                                         onClick={() => handleDelete(ad.id)}
                                                         className="flex-1 sm:flex-none p-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl transition-all shadow-sm border border-red-100 flex items-center justify-center lg:p-1.5"
@@ -405,6 +467,19 @@ const Ads = () => {
                                                     {selectedAd.views}
                                                 </div>
                                             </div>
+                                            {selectedAd.is_featured && (
+                                                <div className="flex justify-between items-center text-sm bg-yellow-50 -mx-5 px-5 py-2 border-y border-yellow-100">
+                                                    <span className="text-yellow-700 text-xs font-bold flex items-center gap-1">
+                                                        <Star size={12} fill="currentColor" />
+                                                        إعلان مميز
+                                                    </span>
+                                                    {selectedAd.featured_until && (
+                                                        <span className="text-[10px] text-yellow-600">
+                                                            حتى {new Date(selectedAd.featured_until).toLocaleDateString('ar-YE')}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -461,6 +536,25 @@ const Ads = () => {
                                     <X size={18} />
                                     <span className="hidden sm:inline">رفض الإعلان</span>
                                     <span className="sm:hidden">رفض</span>
+                                </button>
+                            )}
+                            {selectedAd.is_featured ? (
+                                <button
+                                    onClick={() => handleDeactivateFeatured(selectedAd.id)}
+                                    className="flex-1 sm:flex-none px-4 py-3 sm:px-8 bg-yellow-100 text-yellow-700 border border-yellow-200 font-black rounded-xl sm:rounded-2xl hover:bg-yellow-200 transition-all text-xs sm:text-sm flex items-center justify-center gap-2"
+                                >
+                                    <Star size={18} fill="currentColor" />
+                                    <span className="hidden sm:inline">إلغاء التمييز</span>
+                                    <span className="sm:hidden">إلغاء</span>
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={() => handleActivateFeatured(selectedAd.id)}
+                                    className="flex-1 sm:flex-none px-4 py-3 sm:px-8 bg-purple-600 text-white font-black rounded-xl sm:rounded-2xl hover:bg-purple-700 transition-all text-xs sm:text-sm flex items-center justify-center gap-2"
+                                >
+                                    <Star size={18} />
+                                    <span className="hidden sm:inline">تفعيل الإعلان المميز (7 أيام)</span>
+                                    <span className="sm:hidden">تمييز</span>
                                 </button>
                             )}
                             <button
