@@ -303,8 +303,8 @@ const Ads = () => {
                                                     {ad.is_featured ? (
                                                         <button
                                                             onClick={() => handleDeactivateFeatured(ad.id)}
-                                                            className="flex-1 sm:flex-none p-2 bg-yellow-100 text-yellow-700 hover:bg-yellow-200 rounded-xl transition-all shadow-sm border border-yellow-200 flex items-center justify-center lg:p-1.5"
-                                                            title="إلغاء التمييز"
+                                                            className="flex-1 sm:flex-none p-2 bg-yellow-400 text-white hover:bg-yellow-500 rounded-xl transition-all shadow-md shadow-yellow-200 border border-yellow-400 flex items-center justify-center lg:p-1.5 scale-110"
+                                                            title="إعلان مميز حالياً - اضغط للإلغاء"
                                                         >
                                                             <Star size={18} fill="currentColor" />
                                                             <span className="sm:hidden mr-2 font-bold text-xs">مميز</span>
@@ -541,11 +541,10 @@ const Ads = () => {
                             {selectedAd.is_featured ? (
                                 <button
                                     onClick={() => handleDeactivateFeatured(selectedAd.id)}
-                                    className="flex-1 sm:flex-none px-4 py-3 sm:px-8 bg-yellow-100 text-yellow-700 border border-yellow-200 font-black rounded-xl sm:rounded-2xl hover:bg-yellow-200 transition-all text-xs sm:text-sm flex items-center justify-center gap-2"
+                                    className="flex-1 sm:flex-none px-4 py-3 sm:px-8 bg-yellow-400 text-white font-black rounded-xl sm:rounded-2xl hover:bg-yellow-500 transition-all text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-yellow-200 border-2 border-yellow-300"
                                 >
                                     <Star size={18} fill="currentColor" />
-                                    <span className="hidden sm:inline">إلغاء التمييز</span>
-                                    <span className="sm:hidden">إلغاء</span>
+                                    <span>الإعلان مميز حالياً (إلغاء)</span>
                                 </button>
                             ) : (
                                 <button
