@@ -268,65 +268,65 @@ const Ads = () => {
                                             </div>
                                         </td>
                                         <td className="px-0 py-4 sm:px-6 sm:py-4">
-                                            <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2">
+                                            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-3">
                                                 <button
                                                     onClick={() => fetchAdDetails(ad.id)}
-                                                    className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 sm:px-3 sm:py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-xl transition-all text-xs font-bold shadow-sm border border-indigo-100 sm:border-0"
+                                                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 sm:px-3 sm:py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-xl transition-all text-xs font-bold shadow-sm border border-indigo-100 sm:border-0"
                                                 >
                                                     <Eye size={16} />
-                                                    <span>عرض التفاصيل</span>
+                                                    <span>التفاصيل</span>
                                                 </button>
 
-                                                <div className="flex gap-2 w-full sm:w-auto">
+                                                <div className="grid grid-cols-4 sm:flex gap-2 w-full sm:w-auto">
                                                     {ad.status === 'pending' && (
                                                         <button
                                                             onClick={() => handleUpdateStatus(ad.id, 'active')}
-                                                            className="flex-1 sm:flex-none p-2 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-xl transition-all shadow-sm border border-emerald-100 flex items-center justify-center lg:p-1.5"
+                                                            className="flex flex-col sm:flex-row items-center justify-center p-2 sm:p-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-xl transition-all border border-emerald-100"
                                                             title="قبول"
                                                         >
                                                             <Check size={18} />
-                                                            <span className="sm:hidden mr-2 font-bold text-xs text-emerald-700">قبول</span>
+                                                            <span className="sm:hidden text-[9px] font-bold mt-1">قبول</span>
                                                         </button>
                                                     )}
 
                                                     {ad.status !== 'rejected' && ad.status !== 'sold' && (
                                                         <button
                                                             onClick={() => handleUpdateStatus(ad.id, 'rejected')}
-                                                            className="flex-1 sm:flex-none p-2 bg-amber-50 text-amber-600 hover:bg-amber-100 rounded-xl transition-all shadow-sm border border-amber-100 flex items-center justify-center lg:p-1.5"
+                                                            className="flex flex-col sm:flex-row items-center justify-center p-2 sm:p-1.5 bg-amber-50 text-amber-600 hover:bg-amber-100 rounded-xl transition-all border border-amber-100"
                                                             title="رفض"
                                                         >
                                                             <X size={18} />
-                                                            <span className="sm:hidden mr-2 font-bold text-xs text-amber-700">رفض</span>
+                                                            <span className="sm:hidden text-[9px] font-bold mt-1">رفض</span>
                                                         </button>
                                                     )}
 
                                                     {ad.is_featured ? (
                                                         <button
                                                             onClick={() => handleDeactivateFeatured(ad.id)}
-                                                            className="flex-1 sm:flex-none p-2 bg-yellow-400 text-white hover:bg-yellow-500 rounded-xl transition-all shadow-md shadow-yellow-200 border border-yellow-400 flex items-center justify-center lg:p-1.5 scale-110"
-                                                            title="إعلان مميز حالياً - اضغط للإلغاء"
+                                                            className="flex flex-col sm:flex-row items-center justify-center p-2 sm:p-1.5 bg-yellow-400 text-white hover:bg-yellow-500 rounded-xl transition-all shadow-md shadow-yellow-100 border border-yellow-400"
+                                                            title="إلغاء التمييز"
                                                         >
                                                             <Star size={18} fill="currentColor" />
-                                                            <span className="sm:hidden mr-2 font-bold text-xs">مميز</span>
+                                                            <span className="sm:hidden text-[9px] font-bold mt-1">مميز</span>
                                                         </button>
                                                     ) : (
                                                         <button
                                                             onClick={() => handleActivateFeatured(ad.id)}
-                                                            className="flex-1 sm:flex-none p-2 bg-purple-50 text-purple-600 hover:bg-purple-100 rounded-xl transition-all shadow-sm border border-purple-100 flex items-center justify-center lg:p-1.5"
-                                                            title="تفعيل التمييز"
+                                                            className="flex flex-col sm:flex-row items-center justify-center p-2 sm:p-1.5 bg-purple-50 text-purple-600 hover:bg-purple-100 rounded-xl transition-all border border-purple-100"
+                                                            title="تمييز"
                                                         >
                                                             <Star size={18} />
-                                                            <span className="sm:hidden mr-2 font-bold text-xs text-purple-700">تمييز</span>
+                                                            <span className="sm:hidden text-[9px] font-bold mt-1">تمييز</span>
                                                         </button>
                                                     )}
 
                                                     <button
                                                         onClick={() => handleDelete(ad.id)}
-                                                        className="flex-1 sm:flex-none p-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl transition-all shadow-sm border border-red-100 flex items-center justify-center lg:p-1.5"
+                                                        className="flex flex-col sm:flex-row items-center justify-center p-2 sm:p-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl transition-all border border-red-100"
                                                         title="حذف"
                                                     >
                                                         <Trash2 size={18} />
-                                                        <span className="sm:hidden mr-2 font-bold text-xs text-red-700">حذف</span>
+                                                        <span className="sm:hidden text-[9px] font-bold mt-1">حذف</span>
                                                     </button>
                                                 </div>
                                             </div>
