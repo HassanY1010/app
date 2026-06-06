@@ -5,14 +5,17 @@ import { Users, LayoutDashboard, AlertCircle, List, Activity, Loader2, ArrowUpRi
 const Stats = () => {
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
     const fetchStats = async () => {
         try {
             setLoading(true);
+            setError('');
             const response = await api.get('/admin/stats');
             setStats(response.data);
         } catch (error) {
             console.error('Error fetching stats:', error);
+            setError('تعذر تحميل الإحصاءات');
         } finally {
             setLoading(false);
         }
@@ -29,6 +32,22 @@ const Stats = () => {
             </div>
         );
     }
+
+    if (error || !stats) {
+        return (
+            <div className="card p-6 text-center">
+                <h1 className="text-lg font-bold text-gray-900 mb-2">تعذر تحميل الإحصاءات</h1>
+                <p className="text-sm text-gray-500 mb-4">تحقق من الاتصال أو صلاحية الجلسة.</p>
+                <button type="button" onClick={fetchStats} className="btn btn-primary px-4 py-2 rounded-lg">
+                    إعادة المحاولة
+                </button>
+            </div>
+        );
+    }
+
+    const activeUsersPercent = stats.total_users > 0
+        ? (stats.active_users / stats.total_users) * 100
+        : 0;
 
     const StatCard = ({ title, value, icon, color, trend, trendValue }) => (
         <div className="card p-4 sm:p-6 flex flex-col justify-between">
@@ -99,7 +118,7 @@ const Stats = () => {
                             <span className="font-bold text-emerald-600">{stats.active_users}</span>
                         </div>
                         <div className="w-full bg-gray-100 rounded-full h-2">
-                            <div className="bg-emerald-500 h-2 rounded-full transition-all duration-1000" style={{ width: `${(stats.active_users / stats.total_users) * 100}%` }}></div>
+                            <div className="bg-emerald-500 h-2 rounded-full transition-all duration-1000" style={{ width: `${activeUsersPercent}%` }}></div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-6">

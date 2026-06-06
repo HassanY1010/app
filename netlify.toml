@@ -3,6 +3,16 @@
   command = "npm run build"
   publish = "dist"
 
-[build.environment]
-  # Disable secrets scanning for public API URL
-  SECRETS_SCAN_ENABLED = "false"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"

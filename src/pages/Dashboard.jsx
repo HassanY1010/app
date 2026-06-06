@@ -1,14 +1,22 @@
 import React from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Users, LogOut, Menu, List, AlertCircle, X } from 'lucide-react';
+import api from '../api/axios';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
-  const handleLogout = () => {
-    localStorage.removeItem('admin_token');
-    navigate('/login');
+  const handleLogout = async () => {
+    try {
+      await api.post('/logout');
+    } catch (error) {
+      console.warn('Logout request failed:', error);
+    } finally {
+      sessionStorage.removeItem('admin_token');
+      sessionStorage.removeItem('admin_user');
+      navigate('/login');
+    }
   };
 
   const navItems = [

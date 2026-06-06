@@ -18,7 +18,11 @@ const Login = () => {
         try {
             const response = await api.post('/admin/login', { phone, password });
             const token = response.data.access_token;
-            localStorage.setItem('admin_token', token);
+            if (!token) {
+                throw new Error('Missing token');
+            }
+            sessionStorage.setItem('admin_token', token);
+            sessionStorage.setItem('admin_user', JSON.stringify(response.data.user || response.data.data || null));
             navigate('/');
         } catch (err) {
             setError(err.response?.data?.message || 'فشل تسجيل الدخول');
