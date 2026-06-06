@@ -12,6 +12,31 @@ body {
   direction: rtl;
 }
 
+html,
+body,
+#root {
+  min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  min-width: 0;
+}
+
+button > span {
+  min-width: 0;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
 .card {
   @apply bg-white rounded-2xl shadow-sm border border-gray-100;
 }

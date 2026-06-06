@@ -97,14 +97,14 @@ const Reports = () => {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-800">إدارة البلاغات</h1>
                     <p className="text-gray-500 text-sm mt-1">مراجعة شكاوى المستخدمين والتعامل مع المخالفات</p>
                 </div>
 
-                <div className="flex w-full sm:w-auto bg-gray-100/50 p-1 rounded-2xl border border-gray-100">
+                <div className="grid grid-cols-3 w-full sm:w-auto bg-gray-100/50 p-1 rounded-2xl border border-gray-100">
                     <button
                         onClick={() => setStatusFilter('pending')}
                         className={`flex-1 sm:flex-none px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${statusFilter === 'pending' ? 'bg-white text-amber-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
@@ -208,7 +208,7 @@ const Reports = () => {
 
             {/* Pagination */}
             {totalPages > 1 && (
-                <div className="flex justify-center items-center gap-2 mt-8">
+                <div className="flex flex-wrap justify-center items-center gap-2 mt-8">
                     <button
                         disabled={page === 1}
                         onClick={() => setPage(page - 1)}
@@ -229,8 +229,8 @@ const Reports = () => {
 
             {/* Resolve Modal */}
             {selectedReport && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-                    <div className="bg-white rounded-2xl w-full max-w-lg p-6 shadow-xl scale-100 animate-in zoom-in-95 duration-200">
+                <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="bg-white rounded-t-3xl sm:rounded-2xl w-full max-w-lg max-h-[92dvh] overflow-y-auto p-4 sm:p-6 shadow-xl scale-100 animate-in zoom-in-95 duration-200">
                         <div className="flex justify-between items-center mb-6">
                             <h3 className="text-xl font-bold text-gray-900">معالجة البلاغ</h3>
                             <button onClick={() => setSelectedReport(null)} className="text-gray-400 hover:text-gray-600">
@@ -257,7 +257,7 @@ const Reports = () => {
                                 />
                             </div>
 
-                            <div className="flex gap-3 mt-8">
+                            <div className="flex flex-col sm:flex-row gap-3 mt-8">
                                 <button
                                     type="button"
                                     onClick={() => setSelectedReport(null)}

@@ -49,10 +49,10 @@ const Stats = () => {
         ? (stats.active_users / stats.total_users) * 100
         : 0;
 
-    const StatCard = ({ title, value, icon, color, trend, trendValue }) => (
+    const StatCard = ({ title, value, icon, iconClass, trend, trendValue }) => (
         <div className="card p-4 sm:p-6 flex flex-col justify-between">
             <div className="flex items-start justify-between">
-                <div className={`p-2 sm:p-3 rounded-xl ${color} bg-opacity-10 text-${color.split('-')[1]}-600`}>
+                <div className={`p-2 sm:p-3 rounded-xl ${iconClass}`}>
                     {icon}
                 </div>
                 {trend && (
@@ -82,7 +82,7 @@ const Stats = () => {
                     title="إجمالي المستخدمين"
                     value={stats.total_users}
                     icon={<Users size={20} className="sm:w-6 sm:h-6" />}
-                    color="bg-indigo-500"
+                    iconClass="bg-indigo-50 text-indigo-600"
                     trend="up"
                     trendValue={`+${stats.new_users_today}`}
                 />
@@ -90,7 +90,7 @@ const Stats = () => {
                     title="الإعلانات النشطة"
                     value={stats.active_ads}
                     icon={<LayoutDashboard size={20} className="sm:w-6 sm:h-6" />}
-                    color="bg-emerald-500"
+                    iconClass="bg-emerald-50 text-emerald-600"
                     trend="up"
                     trendValue={stats.new_ads_today}
                 />
@@ -98,13 +98,13 @@ const Stats = () => {
                     title="بلاغات معلقة"
                     value={stats.pending_reports}
                     icon={<AlertCircle size={20} className="sm:w-6 sm:h-6" />}
-                    color="bg-amber-500"
+                    iconClass="bg-amber-50 text-amber-600"
                 />
                 <StatCard
                     title="جلسات نشطة"
                     value={stats.active_sessions}
                     icon={<Activity size={20} className="sm:w-6 sm:h-6" />}
-                    color="bg-blue-500"
+                    iconClass="bg-blue-50 text-blue-600"
                 />
             </div>
 

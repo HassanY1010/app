@@ -32,7 +32,7 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 bg-gray-50">
+        <div className="min-h-dvh flex items-center justify-center p-4 sm:p-6 bg-gray-50">
             <div className="w-full max-w-md animate-in fade-in zoom-in duration-500">
                 <div className="card p-6 sm:p-8 shadow-xl shadow-indigo-100/50">
                     <div className="text-center mb-8">

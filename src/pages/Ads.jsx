@@ -341,7 +341,7 @@ const Ads = () => {
 
             {/* Pagination */}
             {totalPages > 1 && (
-                <div className="flex justify-center items-center gap-2 pt-4">
+                <div className="flex flex-wrap justify-center items-center gap-2 pt-4">
                     <button
                         disabled={page === 1}
                         onClick={() => setPage(page - 1)}
@@ -517,11 +517,11 @@ const Ads = () => {
                         </div>
 
                         {/* Modal Footer - Fixed on Mobile */}
-                        <div className="px-4 py-4 sm:px-8 sm:py-5 bg-white sm:bg-gray-50 border-t flex flex-row sm:flex-wrap justify-end gap-2 sm:gap-3 sticky bottom-0 z-20">
+                        <div className="px-4 py-4 sm:px-8 sm:py-5 bg-white sm:bg-gray-50 border-t grid grid-cols-2 sm:flex sm:flex-wrap justify-end gap-2 sm:gap-3 sticky bottom-0 z-20">
                             {selectedAd.status === 'pending' && (
                                 <button
                                     onClick={() => handleUpdateStatus(selectedAd.id, 'active')}
-                                    className="flex-1 sm:flex-none px-4 py-3 sm:px-8 bg-emerald-600 text-white font-black rounded-xl sm:rounded-2xl hover:bg-emerald-700 transition-all text-xs sm:text-sm flex items-center justify-center gap-2"
+                                    className="min-w-0 sm:flex-none px-4 py-3 sm:px-8 bg-emerald-600 text-white font-black rounded-xl sm:rounded-2xl hover:bg-emerald-700 transition-all text-xs sm:text-sm flex items-center justify-center gap-2"
                                 >
                                     <Check size={18} />
                                     <span className="hidden sm:inline">قبول ونشر الإعلان</span>
@@ -531,7 +531,7 @@ const Ads = () => {
                             {selectedAd.status !== 'rejected' && selectedAd.status !== 'sold' && (
                                 <button
                                     onClick={() => handleUpdateStatus(selectedAd.id, 'rejected')}
-                                    className="flex-1 sm:flex-none px-4 py-3 sm:px-8 bg-amber-600 text-white font-black rounded-xl sm:rounded-2xl hover:bg-amber-700 transition-all text-xs sm:text-sm flex items-center justify-center gap-2"
+                                    className="min-w-0 sm:flex-none px-4 py-3 sm:px-8 bg-amber-600 text-white font-black rounded-xl sm:rounded-2xl hover:bg-amber-700 transition-all text-xs sm:text-sm flex items-center justify-center gap-2"
                                 >
                                     <X size={18} />
                                     <span className="hidden sm:inline">رفض الإعلان</span>
@@ -541,7 +541,7 @@ const Ads = () => {
                             {selectedAd.is_featured ? (
                                 <button
                                     onClick={() => handleDeactivateFeatured(selectedAd.id)}
-                                    className="flex-1 sm:flex-none px-4 py-3 sm:px-8 bg-yellow-400 text-white font-black rounded-xl sm:rounded-2xl hover:bg-yellow-500 transition-all text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-yellow-200 border-2 border-yellow-300"
+                                    className="min-w-0 sm:flex-none px-4 py-3 sm:px-8 bg-yellow-400 text-white font-black rounded-xl sm:rounded-2xl hover:bg-yellow-500 transition-all text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-yellow-200 border-2 border-yellow-300"
                                 >
                                     <Star size={18} fill="currentColor" />
                                     <span>الإعلان مميز حالياً (إلغاء)</span>
@@ -549,7 +549,7 @@ const Ads = () => {
                             ) : (
                                 <button
                                     onClick={() => handleActivateFeatured(selectedAd.id)}
-                                    className="flex-1 sm:flex-none px-4 py-3 sm:px-8 bg-purple-600 text-white font-black rounded-xl sm:rounded-2xl hover:bg-purple-700 transition-all text-xs sm:text-sm flex items-center justify-center gap-2"
+                                    className="min-w-0 sm:flex-none px-4 py-3 sm:px-8 bg-purple-600 text-white font-black rounded-xl sm:rounded-2xl hover:bg-purple-700 transition-all text-xs sm:text-sm flex items-center justify-center gap-2"
                                 >
                                     <Star size={18} />
                                     <span className="hidden sm:inline">تفعيل الإعلان المميز (7 أيام)</span>
@@ -558,7 +558,7 @@ const Ads = () => {
                             )}
                             <button
                                 onClick={() => handleDelete(selectedAd.id)}
-                                className="w-12 h-12 sm:w-auto sm:px-8 sm:py-3 bg-red-50 text-red-600 border border-red-100 font-black rounded-xl sm:rounded-2xl hover:bg-red-600 hover:text-white transition-all flex items-center justify-center gap-2"
+                                className="min-w-0 h-12 sm:w-auto sm:px-8 sm:py-3 bg-red-50 text-red-600 border border-red-100 font-black rounded-xl sm:rounded-2xl hover:bg-red-600 hover:text-white transition-all flex items-center justify-center gap-2"
                             >
                                 <Trash2 size={20} />
                                 <span className="hidden sm:inline">حذف نهائي</span>

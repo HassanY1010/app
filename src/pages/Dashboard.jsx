@@ -28,10 +28,10 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen flex bg-gray-50 overflow-x-hidden">
+    <div className="min-h-dvh w-full flex bg-gray-50 overflow-x-hidden">
       {/* Sidebar */}
-      <aside className={`fixed inset-y-0 right-0 z-50 w-64 bg-white border-l transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : 'translate-x-[100%]'} lg:relative lg:translate-x-0`}>
-        <div className="h-16 flex items-center justify-between px-6 border-b">
+      <aside className={`fixed inset-y-0 right-0 z-50 w-[min(20rem,86vw)] bg-white border-l transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : 'translate-x-[100%]'} lg:relative lg:w-64 lg:translate-x-0`}>
+        <div className="h-16 flex items-center justify-between px-4 sm:px-6 border-b">
           <h1 className="text-xl font-bold text-indigo-600">لوحة التحكم</h1>
           <button onClick={() => setIsSidebarOpen(false)} className="p-2 lg:hidden text-gray-500 hover:text-gray-800">
             <X size={24} />
@@ -66,8 +66,8 @@ const Dashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen">
-        <header className="h-16 bg-white border-b flex items-center justify-between px-4 sticky top-0 z-40 lg:hidden">
+      <div className="flex-1 flex flex-col min-w-0 min-h-dvh">
+        <header className="h-16 bg-white border-b flex items-center justify-between px-3 sm:px-4 sticky top-0 z-40 lg:hidden">
           <button onClick={() => setIsSidebarOpen(true)} className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
             <Menu size={24} />
           </button>
@@ -75,8 +75,8 @@ const Dashboard = () => {
           <div className="w-10"></div> {/* Spacer for symmetry */}
         </header>
 
-        <main className="flex-1 p-4 lg:p-8 overflow-x-hidden">
-          <div className="max-w-7xl mx-auto">
+        <main className="flex-1 w-full p-3 sm:p-4 lg:p-8 overflow-x-hidden">
+          <div className="w-full max-w-7xl mx-auto">
             <Outlet />
           </div>
         </main>

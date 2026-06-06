@@ -140,7 +140,7 @@ const Users = () => {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-0 py-2 sm:px-6 sm:py-4 text-gray-600 font-mono hidden sm:table-cell" dir="ltr text-sm">{user.phone}</td>
+                                        <td className="px-0 py-2 sm:px-6 sm:py-4 text-sm text-gray-600 font-mono hidden sm:table-cell" dir="ltr">{user.phone}</td>
                                         <td className="px-0 py-3 sm:px-6 sm:py-4 border-b border-gray-50 sm:border-0">
                                             <div className="flex items-center justify-between sm:justify-start gap-4">
                                                 <span className="text-xs text-gray-400 sm:hidden font-medium">الرتبة:</span>
@@ -186,7 +186,7 @@ const Users = () => {
 
             {/* Pagination */}
             {totalPages > 1 && (
-                <div className="flex justify-center items-center gap-2">
+                <div className="flex flex-wrap justify-center items-center gap-2">
                     <button
                         disabled={page === 1}
                         onClick={() => setPage(page - 1)}

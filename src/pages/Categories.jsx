@@ -8,7 +8,15 @@ const Categories = () => {
     const [expanded, setExpanded] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentCategory, setCurrentCategory] = useState(null);
-    const [formData, setFormData] = useState({ title: '', icon: '', parent_id: null });
+    const [formData, setFormData] = useState({
+        title: '',
+        icon: '',
+        image: '',
+        color: '#4A6DFF',
+        sort_order: 0,
+        is_active: true,
+        parent_id: null,
+    });
     const [submitting, setSubmitting] = useState(false);
 
     const fetchCategories = async () => {
@@ -34,10 +42,26 @@ const Categories = () => {
     const handleOpenModal = (category = null, parentId = null) => {
         if (category) {
             setCurrentCategory(category);
-            setFormData({ title: category.title, icon: category.icon || '', parent_id: category.parent_id });
+            setFormData({
+                title: category.title,
+                icon: category.icon || '',
+                image: category.image || '',
+                color: category.color || '#4A6DFF',
+                sort_order: category.sort_order ?? 0,
+                is_active: category.is_active !== false,
+                parent_id: category.parent_id,
+            });
         } else {
             setCurrentCategory(null);
-            setFormData({ title: '', icon: '', parent_id: parentId });
+            setFormData({
+                title: '',
+                icon: '',
+                image: '',
+                color: '#4A6DFF',
+                sort_order: 0,
+                is_active: true,
+                parent_id: parentId,
+            });
         }
         setIsModalOpen(true);
     };
@@ -78,7 +102,7 @@ const Categories = () => {
 
         return (
             <div className="animate-in slide-in-from-right-2 duration-300">
-                <div className={`group flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 bg-white border border-gray-100 rounded-2xl hover:border-indigo-200 transition-all ${level > 0 ? 'mr-4 sm:mr-8' : ''} shadow-sm sm:shadow-none`}>
+                <div className={`group flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 bg-white border border-gray-100 rounded-2xl hover:border-indigo-200 transition-all ${level > 0 ? 'mr-3 sm:mr-8' : ''} shadow-sm sm:shadow-none`}>
                     <div className="flex items-center gap-2 sm:gap-3">
                         {hasChildren ? (
                             <button onClick={() => toggleExpand(category.id)} className="p-2 sm:p-1.5 hover:bg-gray-100 rounded-lg text-gray-400">
@@ -87,11 +111,33 @@ const Categories = () => {
                         ) : (
                             <div className="w-10 sm:w-6" />
                         )}
-                        <div className={`p-2 rounded-lg bg-indigo-50 text-indigo-600 hidden sm:block`}>
-                            <Folder size={18} />
+                        <div
+                            className="w-12 h-12 rounded-xl overflow-hidden bg-indigo-50 text-indigo-600 hidden sm:flex items-center justify-center shrink-0"
+                            style={{ backgroundColor: category.color ? `${category.color}14` : undefined }}
+                        >
+                            {category.image ? (
+                                <img
+                                    src={category.image}
+                                    alt=""
+                                    className="w-full h-full object-cover"
+                                    loading="lazy"
+                                    onError={(event) => {
+                                        event.currentTarget.style.display = 'none';
+                                    }}
+                                />
+                            ) : (
+                                <Folder size={18} />
+                            )}
                         </div>
                         <div className="min-w-0">
                             <span className="font-bold sm:font-bold text-gray-900 text-sm sm:text-base">{category.title}</span>
+                            <div className="mt-1 flex min-w-0 items-center gap-2 text-[11px] text-gray-400">
+                                <span
+                                    className="inline-block h-2.5 w-2.5 rounded-full"
+                                    style={{ backgroundColor: category.color || '#64748B' }}
+                                />
+                                <span className="truncate">{category.slug}</span>
+                            </div>
                             {!category.is_active && <span className="mr-2 text-[10px] sm:text-xs text-red-500 font-bold">(غير نشط)</span>}
                         </div>
                     </div>
@@ -139,7 +185,7 @@ const Categories = () => {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div className="px-1 sm:px-0">
                     <h1 className="text-xl sm:text-2xl font-bold text-gray-800">إدارة الأقسام</h1>
@@ -174,7 +220,7 @@ const Categories = () => {
             {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-                    <div className="bg-white rounded-2xl w-full max-w-md p-6 shadow-xl scale-100 animate-in zoom-in-95 duration-200">
+                    <div className="bg-white rounded-2xl w-full max-w-lg max-h-[92dvh] overflow-y-auto p-4 sm:p-6 shadow-xl scale-100 animate-in zoom-in-95 duration-200">
                         <div className="flex justify-between items-center mb-6">
                             <h3 className="text-xl font-bold text-gray-900">{currentCategory ? 'تعديل قسم' : 'إضافة قسم جديد'}</h3>
                             <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-600">
@@ -205,7 +251,47 @@ const Categories = () => {
                                 />
                             </div>
 
-                            <div className="flex gap-3 mt-8">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">رابط الصورة الافتراضية</label>
+                                <input
+                                    type="url"
+                                    value={formData.image}
+                                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                                    className="input"
+                                    placeholder="https://images.unsplash.com/..."
+                                />
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">اللون</label>
+                                    <input
+                                        type="color"
+                                        value={formData.color}
+                                        onChange={(e) => setFormData({ ...formData, color: e.target.value })}
+                                        className="h-12 w-full rounded-xl border border-gray-200 bg-white p-1"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">الترتيب</label>
+                                    <input
+                                        type="number"
+                                        value={formData.sort_order}
+                                        onChange={(e) => setFormData({ ...formData, sort_order: Number(e.target.value) })}
+                                        className="input"
+                                    />
+                                </div>
+                            </div>
+                            <label className="flex items-center gap-3 rounded-xl border border-gray-100 bg-gray-50 p-3 text-sm font-bold text-gray-700">
+                                <input
+                                    type="checkbox"
+                                    checked={formData.is_active}
+                                    onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
+                                    className="h-4 w-4 accent-indigo-600"
+                                />
+                                <span>القسم نشط ويظهر في التطبيق</span>
+                            </label>
+
+                            <div className="flex flex-col sm:flex-row gap-3 mt-8">
                                 <button
                                     type="button"
                                     onClick={() => setIsModalOpen(false)}
