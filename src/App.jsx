@@ -7,6 +7,7 @@ import Stats from './pages/Stats';
 import Ads from './pages/Ads';
 import Categories from './pages/Categories';
 import Reports from './pages/Reports';
+import Activity from './pages/Activity';
 import api from './api/axios';
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -81,6 +82,7 @@ function App() {
                         <Route path="ads" element={<Ads />} />
                         <Route path="categories" element={<Categories />} />
                         <Route path="reports" element={<Reports />} />
+                        <Route path="activity" element={<Activity />} />
                     </Route>
                 </Routes>
             </BrowserRouter>

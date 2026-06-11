@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Users, LogOut, Menu, List, AlertCircle, X } from 'lucide-react';
+import { LayoutDashboard, Users, LogOut, Menu, List, AlertCircle, X, Activity as ActivityIcon } from 'lucide-react';
 import api from '../api/axios';
 
 const Dashboard = () => {
@@ -24,6 +24,7 @@ const Dashboard = () => {
     { icon: <Users size={20} />, label: 'المستخدمين', path: '/users' },
     { icon: <List size={20} />, label: 'الإعلانات', path: '/ads' },
     { icon: <AlertCircle size={20} />, label: 'البلاغات', path: '/reports' },
+    { icon: <ActivityIcon size={20} />, label: 'النشاط', path: '/activity' },
     { icon: <Menu size={20} />, label: 'الأقسام', path: '/categories' },
   ];
 
